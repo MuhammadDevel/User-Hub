@@ -44,7 +44,7 @@ const Login = () => {
     })
     const handleGoogleLogin = async () => {
         window.open(
-            `http://localhost:8000/auth/google`,
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
             "_self",
         )
     }
