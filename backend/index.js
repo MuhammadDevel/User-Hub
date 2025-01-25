@@ -19,7 +19,10 @@ console.log(DATABASE_URL)
 
 // This will solve CORS Police error
 const corsOptions = {
-    origin: "https://user-hub-git-main-muhammaddevels-projects.vercel.app",
+    origin: ["https://user-hub-git-main-muhammaddevels-projects.vercel.app",
+        "https://user-hub-five.vercel.app",
+        "https://user-anog7524q-muhammaddevels-projects.vercel.app"
+    ],
     credentials: true,
     optionsSuccessStatus: 200,
 }
