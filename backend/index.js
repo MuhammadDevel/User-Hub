@@ -8,34 +8,46 @@ import userRoutes from './routes/userRoutes.js'
 import './config/passport-jwt-strategy.js'
 import setTokensCookies from './utils/setTokensCookies.js'
 import './config/google-strategy.js'
-import googleAuthRoute from './routes/googleAuthRoute.js'
+import googleAuthRoute from './routes/googleAuthRoute.js';
 
 dotenv.config()
 const app = express();
+const port = process.env.PORT
 
-// Load environment variables
-const DATABASE_URL = process.env.DATABASE_URL;
-const FRONTEND_HOST = process.env.FRONTEND_HOST;
+const DATABASE_URL = process.env.DATABASE_URL
+console.log(DATABASE_URL)
 
-// Database connection
-connectDB(DATABASE_URL);
-
-// CORS Configuration
+// This will solve CORS Police error
 const corsOptions = {
-    origin: FRONTEND_HOST, // Frontend URL
-    credentials: true,     // Allow cookies
+    origin: process.env.FRONTEND_HOST,
+    credentials: true,
     optionsSuccessStatus: 200,
-};
+}
 app.use(cors(corsOptions));
 
-// Middleware
+// Database connection
+connectDB(DATABASE_URL)
+
+// JSON
 app.use(express.json());
+
+// Passport Middleware
 app.use(passport.initialize());
+
+// Cookies Parser
 app.use(cookieParser());
 
-// Routes
+// Google Auth Routes
 app.use("/api/user", userRoutes);
 app.use("/auth", googleAuthRoute);
 
-// Export app (no app.listen)
-export default app;
+app.get('/',(req,res)=>{
+    res.send({
+        activeStatus:true,
+        error:false,
+    })
+})
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
