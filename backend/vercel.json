@@ -7,9 +7,17 @@
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "use": "/"
-    }
+      {
+        "src": "/api/user/register",
+        "dest": "index.js" 
+      },
+      {
+        "src": "/api/user/login",
+        "dest": "index.js" 
+      },
+      {
+        "src": "/auth/callback", 
+        "dest": "index.js" 
+      }
   ]
 }
